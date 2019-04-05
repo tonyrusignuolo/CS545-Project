@@ -1,0 +1,19 @@
+{
+  "name": "cs-545-project",
+  "version": "1.0.0",
+  "description": "CS 545 A Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "authors": [
+    "Anthony Rusignuolo",
+    "Laura Oliveto",
+    "Mitchell Freedman",
+    "Weronika Zamlynny"
+  ],
+  "dependencies": {
+    "mdbootstrap": "^4.7.6"
+  }
+}
