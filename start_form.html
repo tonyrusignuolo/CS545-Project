@@ -15,18 +15,39 @@
     <!-- Bootstrap Reboot -->
     <link href="css/bootstrap-reboot.min.css" rel="stylesheet">
 	<!-- Your custom styles (optional) -->
-	<link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+
+    <!-- <script> // temporary
+        //pie
+        var ctxP = document.getElementById("pieChart").getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+            type: 'pie',
+            data: {
+            labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+            datasets: [{
+                data: [300, 50, 100, 40, 120],
+                backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+            }]
+            },
+            options: {
+            responsive: true
+            }
+        });
+    </script> -->
 </head>
 
 <body>
 
     <form>
-    <!-- 1. Courses -->
+        <!-- 1. Courses -->
         <h3> Input Class Schedule </h3>
         <h4> Option 1: Upload .isc file </h4>
 
         <div>
             <!-- TODO Auto-detect semester or allow user to input -->
+            <!-- https://web.stevens.edu/stusched/getics.php?s={year}{semester} -->
             <p> Download Stevens .isc file for semester: <a href="https://web.stevens.edu/stusched/getics.php?s=2019s" target="__blank"> Spring 2019 </a> </p>
         </div>
 
@@ -46,7 +67,8 @@
             </br>
             <label for="courseName">Course Name</label>
             <input type="text" id="courseName" placeholder="Ex. Human Computer Interaction">
-            
+            </br>
+
             <!-- Days -->
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
@@ -68,21 +90,38 @@
                 <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option5" >
                 <label class="form-check-label" for="inlineCheckbox3">Friday</label>
             </div>
+            </br>
 
             <!-- <label for="courseStartTime">Course Start Time </label> -->
             <input type="text" id="courseStartTime" placeholder="Course Start Time">
             <!-- <label for="courseEndTime">Course End Time</label> -->
             <input type="text" id="courseEndTime" placeholder="Course End Time">
-            </br>
+            </br></br>
 
-
+            <button type="button">+</button> 
+            <!-- TODO make the button add in additional course forms -->
         </div>
         </br>
-    <!-- 2. Work/Life Balance Goals -->
+        <!-- 2. Work/Life Balance Goals -->
+        <h3> Student/Life Balance Goals </h3>
+        <div>
+            <!-- TODO Add Slider/Pie Chart -->
+            <label for="balanceStudent"> Student/Courses Percentage </label>
+            <input type="text" id="balanceStudent" placeholder="30%" value="30%">
+            </br>
+            <label for="balanceLife"> Life Percentage </label>
+            <input type="text" id="balanceLife" placeholder="30%" value="30%">
+            </br>
+            <label for="balanceSleep"> Sleep Percentage </label>
+            <input type="text" id="balanceSleep" placeholder="30%" value="30%">
+            </br>
 
-    <!-- 2. Events (academic, personal, sleep) -->
+            <!-- <canvas id="pieChart"></canvas> -->
+        </div>
 
-    <!--  -->
+        <!-- 2. Events (academic, personal, sleep) -->
+        <!-- This can maybe be a pop-up from the calendar -->
+        <h3> Events </h3>
 
     
     </form>
