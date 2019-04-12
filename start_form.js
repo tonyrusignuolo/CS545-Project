@@ -101,3 +101,36 @@ function loadPieChart(percentStudent, percentLife, percentSleep) {
         }
     });
 }
+
+var num_courses = 0;
+function addCourseForm()
+{
+    console.log('course-form-'+num_courses);
+    var prevCourse = document.getElementById('course-form-'+num_courses);
+    console.log(prevCourse);
+    var newCourse = prevCourse.cloneNode(true);
+    newCourse.id = 'course-form-' + ++num_courses;
+    prevCourse.parentNode.appendChild(newCourse);
+
+    if (num_courses == 1)
+    {
+        document.getElementsByClassName("remove-course-form-button")[0].style.display = "inline";
+    }
+}
+
+function removeCourseForm()
+{
+    if (num_courses > 0)
+    {
+        console.log('course-form-'+num_courses);
+        var prevCourse = document.getElementById('course-form-'+num_courses);
+
+        prevCourse.remove();
+        --num_courses;
+        
+        if (num_courses == 0) 
+        {
+        document.getElementsByClassName("remove-course-form-button")[0].style.display = "none";
+        }
+    }
+}

@@ -25,3 +25,7 @@ opacity: 1;
 .step.finish {
 background-color: #4CAF50;
 }
+
+.remove-course-form-button {
+    display: none;
+}
