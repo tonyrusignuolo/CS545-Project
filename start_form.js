@@ -9,11 +9,6 @@ window.addEventListener("load", function (event) {
 function showTab(n) {
     // This function will display the specified tab of the form ...
     var x = document.getElementsByClassName("tab");
-    console.log("x", x)
-    console.log("n", n)
-    console.log("X length", x.length)
-    console.log("item", x.item(n))
-    console.log("x[n]", x[n])
     x[n].style.display = "block";
     // ... and fix the Previous/Next buttons:
     if (n == 0) {
@@ -105,9 +100,7 @@ function loadPieChart(percentStudent, percentLife, percentSleep) {
 var num_courses = 0;
 function addCourseForm()
 {
-    console.log('course-form-'+num_courses);
     var prevCourse = document.getElementById('course-form-'+num_courses);
-    console.log(prevCourse);
     var newCourse = prevCourse.cloneNode(true);
     newCourse.id = 'course-form-' + ++num_courses;
     prevCourse.parentNode.appendChild(newCourse);
@@ -122,7 +115,6 @@ function removeCourseForm()
 {
     if (num_courses > 0)
     {
-        console.log('course-form-'+num_courses);
         var prevCourse = document.getElementById('course-form-'+num_courses);
 
         prevCourse.remove();

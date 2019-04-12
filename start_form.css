@@ -18,14 +18,18 @@
   
 /* Mark the active step: */
 .step.active {
-opacity: 1;
+    opacity: 1;
 }
 
 /* Mark the steps that are finished and valid: */
 .step.finish {
-background-color: #4CAF50;
+    background-color: #4CAF50;
 }
 
 .remove-course-form-button {
     display: none;
+}
+
+.start-form {
+    margin: 10px;
 }
