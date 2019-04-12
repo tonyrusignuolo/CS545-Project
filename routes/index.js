@@ -1,0 +1,62 @@
+const router = require("express").Router();
+
+router.get("", async (req, res) => {
+	try {
+		let options = {
+			title: "Main Page"
+		};
+		// send a static file?
+		// res.render("", options)
+	} catch (err) {
+		res.status();
+		res.render("templates/error", {
+			title: "Error",
+			err: err
+		});
+	}
+})
+
+router.get("/login", async (req, res) => {
+	try {
+		let options = {
+			title: "Login"
+		};
+		res.render("templates/login", options);
+	} catch (err) {
+		res.status();
+		res.render("templates/error", {
+			title: "Error",
+			err: err
+		});
+	}
+})
+
+router.get("/calendar", async (req, res) => {
+	try {
+		// do stuff
+		let stylesheets = `<link href='/public/css/main.css' rel='stylesheet'/>
+		<link href='/@fullcalendar/core/main.css' rel='stylesheet'/>
+		<link href='/@fullcalendar/daygrid/main.css' rel='stylesheet'/>
+		<link href='/@fullcalendar/timegrid/main.css' rel='stylesheet'/>
+		<link href='/@fullcalendar/list/main.css' rel='stylesheet'/>`;
+		let scripts = `<script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src='/@fullcalendar/core/main.js'></script>
+		<script src='/@fullcalendar/daygrid/main.js'></script>
+		<script src='/@fullcalendar/timegrid/main.js'></script>
+		<script src='/public/js/calendar.js'></script>`;
+		let options = {
+			stylesheets: stylesheets,
+			scripts: scripts,
+			title: "Calendar!"
+		};
+		res.render("templates/calendar", options);
+	} catch (err) {
+		res.status();
+		res.render("templates/error", {
+			title: "Error",
+			err: err
+		});
+	}
+})
+
+module.exports = router;
