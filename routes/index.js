@@ -66,13 +66,13 @@ router.get("/startForm", async (req, res) => {
 	try {
 		let stylesheets = `<link href="/public/css/start_form.css" rel="stylesheet">`;
 
-		let scripts = `<script src="/public/js/start_form.js"></script>
+		let scripts1 = `<script src="/public/js/start_form.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 		`
 		let options = {
 			title: "Start Form",
 			stylesheets: stylesheets,
-			scripts: scripts,
+			scripts1: scripts1,
 		};
 		res.render("templates/startForm", options);
 	} catch (err) {
