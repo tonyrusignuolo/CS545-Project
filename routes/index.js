@@ -81,4 +81,77 @@ router.get("/startForm", async (req, res) => {
 	}
 })
 
+router.get("/profile", (req, res) => {
+	try {
+		let stylesheets = `<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">`;
+
+		let scripts = `<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+			<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+				// Load google charts
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+
+				// Draw the chart and set the chart values
+				function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+				['Task', 'Hours per Day'],
+				['Work', 8],
+				['Friends', 2],
+				['Eat', 2],
+				['TV', 2],
+				['Gym', 2],
+				['Sleep', 8]
+				]);
+
+				// Optional; add a title and set the width and height of the chart
+				var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+				// Display the chart inside the <div> element with id="piechart"
+				var chart = new google.visualization.PieChart(document.getElementById('chartOne'));
+				chart.draw(data, options);
+				}
+			</script>
+
+			<script type="text/javascript">
+				google.charts.load('current', {'packages':['bar']});
+				google.charts.setOnLoadCallback(drawChart);
+
+				function drawChart() {
+					var data = google.visualization.arrayToDataTable([
+					['Category', 'Target Percentage', 'Achieved Percentage'],
+					['Sleep', 40, 35],
+					['Work', 30, 40],
+					['Play', 30, 25]
+					]);
+
+					var options = {
+					chart: {
+						title: 'Goals vs Achieved'
+					}
+					};
+
+					var chart = new google.charts.Bar(document.getElementById('chartTwo'));
+
+					chart.draw(data, google.charts.Bar.convertOptions(options));
+				}
+			</script>
+			`;
+		let options = {
+			title: "Profile",
+			stylesheets: stylesheets,
+			scripts: scripts,
+		};
+
+		res.render("templates/profile", options);
+	} catch (err) {
+		res.status();
+		res.render("templates/error", {
+			title: "Error",
+			err: err
+		});
+	}
+})
+
 module.exports = router;
