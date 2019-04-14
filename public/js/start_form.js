@@ -103,7 +103,8 @@ function nextPrev(n) {
     if (currentTab >= x.length) {
         //...the form gets submitted:
         document.getElementById("start-form").submit();
-        console.log("SUBMIT BUTTON PRESSED");
+        // console.log("SUBMIT BUTTON PRESSED");
+        submitStartForm();
         return false;
     }
     // Otherwise, display the correct tab:
@@ -160,11 +161,9 @@ function validateForm() {
 /**
  * Submits the form
  */
-function submitStartForm(scope) {
+function submitStartForm(a) {
     // TODO
-    console.log("In submitStartForm");
-    console.log("scope");
-    window.location("/calendar");
-
+    // console.log("In submitStartForm");
+    window.location = "/calendar";
     return false;
 }
