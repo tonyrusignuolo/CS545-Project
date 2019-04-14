@@ -1,1 +1,29 @@
 <div id='calendar'></div>
+<div id="myModal" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Add Event</h5>
+			{{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<i class="material-icons">clear</i>
+			</button> --}}
+			<span class="close">&times;</span>
+		</div>
+		<div class="modal-body">
+			<form action="javascript:void(0);">
+				<label for="title">Title: </label><br>
+				<input type="text" id="title" name="title" /><br>
+				<label for="description">Description: </label><br>
+				<input type="text" id="description" name="description" /><br>
+				<label for="date">Date: </label><br>
+				<input type="text" id="date" name="date" /><br>
+				<label for="from">From: </label><br>
+				<input type="text" id="from" name="from" /><br>
+				<label for="to">To: </label><br>
+				<input type="text" id="to" name="to" /><br>
+				<label for="location">Location: </label><br>
+				<input type="text" id="location" name="location" /><br>
+				<button type="submit">Add Event</button>
+			</form>
+		</div>
+	</div>
+</div>

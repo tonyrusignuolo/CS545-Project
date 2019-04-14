@@ -1,5 +1,66 @@
-let events = [
-	{
+// import Calendar from '@fullcalendar/core';
+// import dayGridPlugin from '@fullcalendar/daygrid';
+var calendarEl;
+var calendar;
+
+function renderCalendar() {
+	calendar = new FullCalendar.Calendar(calendarEl, {
+		customButtons: {
+			addEvent: {
+				text: 'Add',
+				click: function () {
+					// addEvent();
+					var modal = document.getElementById('myModal');
+					modal.style.display = "block";
+				}
+			}
+		},
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'addEvent dayGridMonth,timeGridWeek,listDay'
+		},
+		plugins: ['dayGrid', 'timeGrid', 'list'],
+		// plugins: [FullCalendar.dayGridPlugin, FullCalendar.timeGrid, FullCalendar.list],
+		views: {
+			listDay: {
+				buttonText: 'list day'
+			},
+			listWeek: {
+				buttonText: 'list week'
+			}
+		},
+		navLinks: true, // can click day/week names to navigate views
+		editable: true,
+		eventLimit: true, // allow "more" link when too many events
+		events: events
+	});
+	calendar.render();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+	calendarEl = document.getElementById('calendar');
+	// calendar = new FullCalendar.Calendar(calendarEl, {});
+	renderCalendar();
+})
+
+function addEvent(title, description, date, from, to, location) {
+	let start = date + 'T' + from;
+	let end = date + 'T' + to;
+	let event = {
+		title: title ? title : 'Title',
+		description: description ? description : 'Description',
+		start: start ? start : '2019-04-04',
+		end: end ? end : '2019-04-05',
+		location: location ? location : "Location"
+	}
+	events.push(event);
+	calendar.destroy();
+	renderCalendar();
+	console.log("h");
+}
+
+let events = [{
 		title: 'All Day Event',
 		description: 'description for All Day Event',
 		start: '2019-04-01'
@@ -56,25 +117,6 @@ let events = [
 		start: '2019-04-28'
 	}
 ]
-
-let events2 = [];
-
-document.addEventListener('DOMContentLoaded', function () {
-	var calendarEl = document.getElementById('calendar');
-	var calendar = new FullCalendar.Calendar(calendarEl, {
-		dateClick: function() {
-			alert('a day has been clicked!');
-		},
-		header: { center: 'dayGridMonth,timeGridWeek' },
-		plugins: ['dayGrid', 'timeGrid', 'list'], 
-		events: events
-	});
-	calendar.render();
-});
-
-function whatever(){
-	// create new json object
-}
 
 // document.addEventListener('DOMContentLoaded', function () {
 // 	var calendarEl = document.getElementById('calendar');

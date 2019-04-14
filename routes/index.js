@@ -5,8 +5,7 @@ router.get("", async (req, res) => {
 		let options = {
 			title: "Main Page"
 		};
-		// send a static file?
-		// res.render("", options)
+		res.render("templates/landing");
 	} catch (err) {
 		res.status();
 		res.render("templates/error", {
@@ -39,15 +38,19 @@ router.get("/calendar", async (req, res) => {
 		<link href='/@fullcalendar/daygrid/main.css' rel='stylesheet'/>
 		<link href='/@fullcalendar/timegrid/main.css' rel='stylesheet'/>
 		<link href='/@fullcalendar/list/main.css' rel='stylesheet'/>`;
-		let scripts = `<script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		let scripts1 = `<script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src='/@fullcalendar/core/main.js'></script>
 		<script src='/@fullcalendar/daygrid/main.js'></script>
 		<script src='/@fullcalendar/timegrid/main.js'></script>
+		<script src='/@fullcalendar/list/main.js'></script>
+		<script src='/@fullcalendar/interaction/main.js'></script>
 		<script src='/public/js/calendar.js'></script>`;
+		let scripts2 = `<script src='/public/js/modal.js'></script>`;
 		let options = {
 			stylesheets: stylesheets,
-			scripts: scripts,
-			title: "Calendar!"
+			scripts1: scripts1,
+			scripts2: scripts2,
+			title: "Calendar!",
 		};
 		res.render("templates/calendar", options);
 	} catch (err) {
