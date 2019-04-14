@@ -88,7 +88,7 @@ router.get("/profile", (req, res) => {
 	try {
 		let stylesheets = `<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">`;
 
-		let scripts = `<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		let scripts1 = `<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 			<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 			<script type="text/javascript">
@@ -144,7 +144,7 @@ router.get("/profile", (req, res) => {
 		let options = {
 			title: "Profile",
 			stylesheets: stylesheets,
-			scripts: scripts,
+			scripts1: scripts1,
 		};
 
 		res.render("templates/profile", options);
