@@ -1,16 +1,16 @@
-<form class="start-form">
+<form id="start-form" class="start-form" method="post" onsubmit="return submitStartForm(this);">
 	<div class="tab">
 		<!-- User Sign Up -->
 		<h3> User Information </h3>
 
 		<label for="userName">User Name</label>
-		<input type="text" id="userName" placeholder="User Name">
+		<input type="text" id="userName" placeholder="User Name" required>
 		</br>
 		<label for="userEmail">User Email</label>
-		<input type="email" id="userEmail" placeholder="User Email">
+		<input type="email" id="userEmail" placeholder="User Email" required>
 		</br>
 		<label for="userPassword">User Password</label>
-		<input type="password" id="userPassword" placeholder="User Password">
+		<input type="password" id="userPassword" placeholder="User Password" required>
 		</br>
 	</div>
 	<div class="tab">
@@ -104,9 +104,9 @@
 
 	<!-- 2. Events (academic, personal, sleep) -->
 	<!-- This can maybe be a pop-up from the calendar -->
-	<div class="tab">
+	{{!-- <div class="tab">
 		<h3> Events </h3>
-	</div>
+	</div> --}}
 
 	<!-- Next and Prev Arrows -->
 	<div style="overflow:auto;">
