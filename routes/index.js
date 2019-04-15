@@ -2,10 +2,12 @@ const router = require("express").Router();
 
 router.get("", async (req, res) => {
 	try {
+		let stylesheets = `<link href="/public/css/landing.css" rel="stylesheet">`;
 		let options = {
-			title: "Main Page"
+			title: "Main Page",
+			stylesheets: stylesheets
 		};
-		res.render("templates/landing");
+		res.render("templates/landing", options);
 	} catch (err) {
 		res.status();
 		res.render("templates/error", {
@@ -17,8 +19,10 @@ router.get("", async (req, res) => {
 
 router.get("/login", async (req, res) => {
 	try {
+		let stylesheets = `<link href="/public/css/login.css" rel="stylesheet">`;
 		let options = {
-			title: "Login"
+			title: "Login",
+			stylesheets: stylesheets
 		};
 		res.render("templates/login", options);
 	} catch (err) {

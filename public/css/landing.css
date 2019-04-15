@@ -1,0 +1,12 @@
+.landing {
+    width:60%;
+    max-width: 500px;
+    height: 100vh;
+    margin: auto;
+}
+
+.landing-title {
+    text-align:center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
