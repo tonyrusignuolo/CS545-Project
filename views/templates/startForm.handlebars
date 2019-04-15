@@ -45,16 +45,25 @@
 		<div>
 			<!-- Need an extra div so button stays at bottom -->
 			<div>
-				<div id="course-form-0">
+				<div "form-group">
+				<div id="course-form-0" class="course-form">
 
-					<label for="courseNumber">Course Number</label>
-					<input type="text" id="courseNumber" placeholder="Ex. CS 545">
-					</br>
-					<label for="courseName">Course Name</label>
-					<input type="text" id="courseName" placeholder="Ex. Human Computer Interaction">
-					</br>
+					<div class="form-group row">
+						<label for="courseNumber" class="col-sm-4 col-form-label">Course Number</label>
+						<div class="col-sm-8">
+							<input type="text" id="courseNumber" class="form-control" placeholder="Ex. CS 545">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="courseName" class="col-sm-4 col-form-label">Course Name</label>
+						<div class="col-sm-8">
+							<input type="text" id="courseName" class="form-control" placeholder="Ex. Human Computer Interaction">
+						</div>
+					</div>
 
 					<!-- Days -->
+					<div class="form-group row">
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="checkbox" id="courseMonday" value="Monday">
 						<label class="form-check-label" for="courseMonday">Monday</label>
@@ -75,20 +84,29 @@
 						<input class="form-check-input" type="checkbox" id="courseFriday" value="Friday">
 						<label class="form-check-label" for="courseFriday">Friday</label>
 					</div>
-					</br>
+					</div>
 
-					<label for="courseStartTime">Course Start Time </label>
-					<input type="time" id="courseStartTime">
+					<div class="form-group row">
+						<label for="courseStartTime" class="col-sm-4 col-form-label">Course Start Time </label>
+						<div class="col-sm-8">
+							<input type="time" id="courseStartTime" class="form-control">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="courseEndTime" class="col-sm-4 col-form-label">Course End Time</label>
+						<div class="col-sm-8">
+							<input type="time" id="courseEndTime" class="form-control">
+						</div>
+					</div>
+
 					</br>
-					<label for="courseEndTime">Course End Time</label>
-					<input type="time" id="courseEndTime">
-					</br></br>
 				</div>
-
-
-			</div>
-			<button type="button" onclick="removeCourseForm()" class="btn btn-outline-primary remove-course-form-button"><i class="fa fa-minus" aria-hidden="true"></i></button>
-			<button type="button" onclick="addCourseForm()" class="btn btn-outline-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+				
+				</div>
+				<button type="button" onclick="removeCourseForm()" class="btn btn-outline-primary remove-course-form-button"><i class="fa fa-minus" aria-hidden="true"></i></button>
+				<button type="button" onclick="addCourseForm()" class="btn btn-outline-primary"><i class="fa fa-plus" aria-hidden="true"></i></button>
+			</div>	
 		</div>
 		<!-- </br> -->
 	</div>
@@ -96,17 +114,39 @@
 		<!-- 2. Work/Life Balance Goals -->
 		<h3> Student/Life Balance Goals </h3>
 		<div>
-			<!-- TODO Add Slider/Pie Chart -->
-			<label for="balanceStudent"> Student/Courses Percentage </label>
-			<input type="text" id="balanceStudent" placeholder="30" value="30" onblur="updatePieChart()">
-			</br>
-			<label for="balanceLife"> Life Percentage </label>
-			<input type="text" id="balanceLife" placeholder="30" value="30" onblur="updatePieChart()">
-			</br>
-			<label for="balanceSleep"> Sleep Percentage </label>
-			<input type="text" id="balanceSleep" placeholder="30" value="30" onblur="updatePieChart()">
-			</br>
-
+			<div class="form-group row">
+				<label for="balanceStudent" class="col-sm-4 col-form-label">Student/Courses</label>
+				<div class="col-sm-3">
+					<input type="text" id="balanceStudent" class="balance-input form-control" placeholder="30" value="30" onblur="updatePieChart()">
+					%
+				</div>
+				{{!-- <div class="col-sm-3">
+					<input type="text" id="balanceStudent" class="balance-input form-control" placeholder="8" value="8" onblur="updatePieChart()">
+					hrs
+				</div> --}}
+			</div>
+			<div class="form-group row">
+				<label for="balanceLife" class="col-sm-4 col-form-label"> Life </label>
+				<div class="col-sm-3">
+					<input type="text" id="balanceLife" class="balance-input form-control" placeholder="30" value="30" onblur="updatePieChart()">
+					%
+				</div>
+				{{!-- <div class="col-sm-3">
+					<input type="text" id="balanceLife" class="balance-input form-control" placeholder="8" value="8" onblur="updatePieChart()">
+					hrs
+				</div> --}}
+			</div>
+			<div class="form-group row">
+				<label for="balanceSleep" class="col-sm-4 col-form-label"> Sleep </label>
+				<div class="col-sm-3">
+					<input type="text" id="balanceSleep" class="balance-input form-control" placeholder="30" value="30" onblur="updatePieChart()">
+					%
+				</div>
+				{{!-- <div class="col-sm-3">
+					<input type="text" id="balanceSleep" class="balance-input form-control" placeholder="8" value="8" onblur="updatePieChart()">
+					hrs
+				</div> --}}
+			</div>
 			<canvas id="pieChart"></canvas>
 		</div>
 	</div>

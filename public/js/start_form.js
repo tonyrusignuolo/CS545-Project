@@ -158,6 +158,7 @@ function validateForm() {
             userName.setCustomValidity("");
         }
         let userEmail = document.getElementById("userEmail");
+        // TODO additional validation
         if (userEmail.value == "") {
             userEmail.setCustomValidity("User Email required.");
             valid = false;
@@ -166,6 +167,7 @@ function validateForm() {
             userEmail.setCustomValidity("");
         }
         let userPassword = document.getElementById("userPassword");
+        // TODO additional validation
         if (userPassword.value == "") {
             userPassword.setCustomValidity("User Password required.");
             valid = false;
@@ -173,6 +175,12 @@ function validateForm() {
         else {
             userPassword.setCustomValidity("");
         }
+    }
+    else if (currentTab == 1) {
+        // No required fields
+    }
+    else if (currentTab == 2) {
+        // balanceStudent, balanceLife, balanceSleep
     }
     // TODO slide 2 and 3
 

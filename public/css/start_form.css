@@ -39,3 +39,15 @@
     /* border: 3px solid #3788d8; */
     /* padding: 10px; */
 }
+
+.balance-input {
+    width: 60%;
+    display: inline;
+}
+
+.course-form {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: 10px;
+    margin: 10px
+}
