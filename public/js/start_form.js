@@ -1,8 +1,10 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
+var num_courses = 0;
+var myPieChart;
 
 window.addEventListener("load", function (event) {
     showTab(currentTab);
-    loadPieChart(30, 30, 30);
+    loadPieChart();
 });
 
 /**
@@ -11,10 +13,13 @@ window.addEventListener("load", function (event) {
  * @param {int} percentLife 
  * @param {int} percentSleep 
  */
-function loadPieChart(percentStudent, percentLife, percentSleep) {
-    //pie
+function loadPieChart() {
+    let percentStudent = document.getElementById("balanceStudent").value;
+    let percentLife = document.getElementById("balanceLife").value;
+    let percentSleep = document.getElementById("balanceSleep").value;
+
     var ctxP = document.getElementById("pieChart").getContext('2d');
-    var myPieChart = new Chart(ctxP, {
+    myPieChart = new Chart(ctxP, {
         type: 'pie',
         data: {
             labels: ["Student", "Life", "Sleep"],
@@ -30,7 +35,12 @@ function loadPieChart(percentStudent, percentLife, percentSleep) {
     });
 }
 
-var num_courses = 0;
+function updatePieChart()
+{
+    myPieChart.destroy();
+    loadPieChart();
+}
+
 /**
  * Creates additional form fields to allow user to add more courses
  * on Input Class Schedule slide.
@@ -80,7 +90,7 @@ function showTab(n) {
     if (n == (x.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").innerHTML = "Next <i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i>";
     }
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(n)
@@ -133,24 +143,39 @@ function fixStepIndicator(n) {
  * Validates each slide of the form
  */
 function validateForm() {
-    // TODO 
-    // return true;
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    // x = document.getElementsByClassName("tab");
-    // y = x[currentTab].getElementsByTagName("input");
-    // // A loop that checks every input field in the current tab:
-    // for (i = 0; i < y.length; i++) {
-    //     console.log(y[i])
+    var valid = true;
 
-    //     // If a field is empty...
-    //     if (y[i].value == "") {
-    //         // add an "invalid" class to the field:
-    //         y[i].className += " invalid";
-    //         // and set the current valid status to false:
-    //         valid = false;
-    //     }
-    // }
+    // User Information 
+    if (currentTab == 0) {
+        //userName Email password
+        let userName = document.getElementById("userName");
+        if (userName.value == "") {
+            // userName.className += " invalid"; // How to actually do this
+            userName.setCustomValidity("User Name required.");
+            valid = false;
+        }
+        else {
+            userName.setCustomValidity("");
+        }
+        let userEmail = document.getElementById("userEmail");
+        if (userEmail.value == "") {
+            userEmail.setCustomValidity("User Email required.");
+            valid = false;
+        }
+        else {
+            userEmail.setCustomValidity("");
+        }
+        let userPassword = document.getElementById("userPassword");
+        if (userPassword.value == "") {
+            userPassword.setCustomValidity("User Password required.");
+            valid = false;
+        }
+        else {
+            userPassword.setCustomValidity("");
+        }
+    }
+    // TODO slide 2 and 3
+
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
