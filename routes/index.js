@@ -41,7 +41,8 @@ router.get("/calendar", async (req, res) => {
 		<link href='/@fullcalendar/core/main.css' rel='stylesheet'/>
 		<link href='/@fullcalendar/daygrid/main.css' rel='stylesheet'/>
 		<link href='/@fullcalendar/timegrid/main.css' rel='stylesheet'/>
-		<link href='/@fullcalendar/list/main.css' rel='stylesheet'/>`;
+		<link href='/@fullcalendar/list/main.css' rel='stylesheet'/>
+		<link href="/public/css/calendar.css" rel="stylesheet">`;
 		let scripts1 = `<script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src='/@fullcalendar/core/main.js'></script>
 		<script src='/@fullcalendar/daygrid/main.js'></script>
