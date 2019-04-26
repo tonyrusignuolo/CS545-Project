@@ -1,38 +1,30 @@
 const router = require("express").Router();
+const eventData = require('../data').events;
 const Handlebars = require('handlebars');
 const fs = require('fs');
 
 router.get("", async (req, res) => {
 	try {
-		let stylesheets = `<link href="/public/css/landing.css" rel="stylesheet">`;
 		let options = {
 			title: "Main Page",
-			stylesheets: stylesheets
+			pageType: "dashboard-page"
 		};
-		res.render("templates/landing", options);
-	} catch (err) {
-		res.status();
-		res.render("templates/error", {
-			title: "Error",
-			err: err
-		});
+		res.render("partials/pages/landing", options);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
 	}
 })
 
 router.get("/login", async (req, res) => {
 	try {
-		let stylesheets = `<link href="/public/css/login.css" rel="stylesheet">`;
 		let options = {
 			title: "Login",
-			stylesheets: stylesheets
 		};
-		res.render("templates/login", options);
-	} catch (err) {
-		res.status();
-		res.render("templates/error", {
-			title: "Error",
-			err: err
-		});
+		res.render("partials/pages/login", options);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
 	}
 })
 
@@ -45,63 +37,121 @@ router.post("/calendar", async (req, res) => {
 router.get("/calendar", async (req, res) => {
 	try {
 		// do stuff
-		let stylesheets = `<link href='/public/css/main.css' rel='stylesheet'/>
-		<link href='/@fullcalendar/core/main.css' rel='stylesheet'/>
-		<link href='/@fullcalendar/daygrid/main.css' rel='stylesheet'/>
-		<link href='/@fullcalendar/timegrid/main.css' rel='stylesheet'/>
-		<link href='/@fullcalendar/list/main.css' rel='stylesheet'/>
-		<link href="/public/css/calendar.css" rel="stylesheet">`;
-		let scripts1 = `<script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script src='/@fullcalendar/core/main.js'></script>
-		<script src='/@fullcalendar/daygrid/main.js'></script>
-		<script src='/@fullcalendar/timegrid/main.js'></script>
-		<script src='/@fullcalendar/list/main.js'></script>
-		<script src='/@fullcalendar/interaction/main.js'></script>
-		<script src='/public/js/calendar.js'></script>`;
 		let scripts2 = `<script src='/public/js/modal.js'></script>`;
 		let options = {
-			stylesheets: stylesheets,
-			scripts1: scripts1,
 			scripts2: scripts2,
 			title: "Calendar!",
 		};
-		res.render("templates/calendar", options);
-	} catch (err) {
-		res.status();
-		res.render("templates/error", {
-			title: "Error",
-			err: err
-		});
+		res.render("partials/pages/calendar", options);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
 	}
 })
 
 router.get("/startForm", async (req, res) => {
 	try {
-		var addClassTemplate = fs.readFileSync('views/templates/addClass.handlebars', 'utf8');
-		Handlebars.registerPartial('addClass', addClassTemplate);
-		Handlebars.precompile(addClassTemplate);
-
-		let stylesheets = `<link href="/public/css/start_form.css" rel="stylesheet">`;
-
-		let scripts1 = `
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-		<script src="/handlebars/dist/handlebars.runtime.js"></script>
-		<script src="/public/js/start_form.js"></script>
-		`
 		let options = {
 			title: "Start Form",
-			stylesheets: stylesheets,
-			scripts1: scripts1,
-			classes: ['0'],
-			handlebars: Handlebars
+			pageType: "dashboard-page",
+			classes: ['0']
 		};
-		res.render("templates/startForm", options);
-	} catch (err) {
-		res.status();
-		res.render("templates/error", {
-			title: "Error",
-			err: err
-		});
+		res.render("partials/pages/startForm", options);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
+	}
+})
+
+router.post("/startform", async (req, res) =>{
+	try {
+		console.log("wz IN POST START FORM");
+		console.log(req.body);
+		// step 1
+		// let userName = document.getElementById("userName").value;
+		// let userEmail = document.getElementById("userEmail").value;
+		// let userPassword = document.getElementById("userPassword").value;
+		// console.log("userName", userName, "userEmail", userEmail, "userPassword", userPassword);
+
+		// // step 2
+		// calendar_events = [];
+		// for (let i = 0; i <= num_courses; ++i) {
+		// 	// TODO check if the initial course is filled out
+		// 	let courseNumber = document.getElementById("courseNumber-"+i).value;
+		// 	let courseName = document.getElementById("courseName-"+i).value;
+
+		// 	let courseMonday = document.getElementById("courseMonday-"+i).checked;
+		// 	let courseTuesday = document.getElementById("courseTuesday-"+i).checked;
+		// 	let courseWednesday = document.getElementById("courseWednesday-"+i).checked;
+		// 	let courseThursday = document.getElementById("courseThursday-"+i).checked;
+		// 	let courseFriday = document.getElementById("courseFriday-"+i).checked;
+
+		// 	let courseStartTime = document.getElementById("courseStartTime-"+i).value;
+		// 	let courseEndTime = document.getElementById("courseEndTime-"+i).value;
+			
+		// 	// hardcoded spring 2019
+		// 	let semesterStart = new Date("2019-01-22");
+		// 	let semesterEnd = new Date("2019-05-08");
+
+		// 	for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
+		// 		// TODO handle course Start and End empty
+		// 		start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+		// 				date.getDate() + 'T' + courseStartTime;
+		// 		end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+		// 				date.getDate() + 'T' + courseEndTime;
+		// 		dow = date.getDay();
+
+		// 		event = {
+		// 			title: courseNumber + ' - ' + courseName,
+		// 			start: start,
+		// 			end: end,
+		// 			category: 'student'
+		// 		}
+
+		// 		// Add event to calendar if the days match up
+		// 		if (dow == 1 && courseMonday) {
+		// 			calendar_events.push(event);
+		// 		}
+		// 		else if (dow == 2 && courseTuesday) {
+		// 			calendar_events.push(event);
+		// 		}
+		// 		else if (dow == 3 && courseWednesday) {
+		// 			calendar_events.push(event);
+		// 		}
+		// 		else if (dow == 4 && courseThursday) {
+		// 			calendar_events.push(event);
+		// 		}
+		// 		else if (dow == 5 && courseFriday) {
+		// 			calendar_events.push(event);
+		// 		}
+		// 	}
+		// 	// console.log("courseNumber", courseNumber, "courseName", courseName, 
+		// 	//     "courseMonday", courseMonday, "courseTuesday", courseTuesday,
+		// 	//     "courseWednesday", courseWednesday, "courseThursday", courseThursday,
+		// 	//     "courseFriday", courseFriday, "courseStartTime", courseStartTime,
+		// 	//     "courseEndTime", courseEndTime);
+		// }
+		// // step 3
+		// let percentStudent = document.getElementById("balanceStudent").value;
+		// let percentLife = document.getElementById("balanceLife").value;
+		// let percentSleep = document.getElementById("balanceSleep").value;
+		// // console.log("percentStudent", percentStudent, "percentLife", percentLife, "percentSleep", percentSleep);
+
+		// let user_json = {
+		// 	userName: userName,
+		// 	userEmail: userEmail,
+		// 	userPassword: userPassword,
+		// 	calendar: calendar_events,
+		// 	percentStudent: percentStudent,
+		// 	percentLife: percentLife,
+		// 	percentSleep: percentSleep
+		// }
+		// console.log(user_json);
+		// const event = await eventData.create(req.body)
+
+	} catch (error) {
+		res.status(400);
+		res.send(error);
 	}
 })
 
@@ -170,11 +220,8 @@ router.get("/profile", (req, res) => {
 
 		res.render("templates/profile", options);
 	} catch (err) {
-		res.status();
-		res.render("templates/error", {
-			title: "Error",
-			err: err
-		});
+		res.status(400);
+		res.send(error);
 	}
 })
 

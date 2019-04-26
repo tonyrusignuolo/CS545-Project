@@ -85,19 +85,23 @@ function addCourseForm() {
                 // Take care of checkboxes
                 child.childNodes.forEach(checkbox_child => {
                     if (checkbox_child.nodeName == "DIV") {
-                        id = checkbox_child.children[0].id;
+                        console.log(checkbox_child.children[0]);
+                        console.log(checkbox_child.children[0].children[0]);
+                        id = checkbox_child.children[0].children[0].id;
                         id = id.split('-')[0] + '-' + num_courses;
-                        checkbox_child.children[0].id = id;
-                        checkbox_child.children[0].checked = false;
+                        checkbox_child.children[0].setAttribute("for", id);
+                        checkbox_child.children[0].children[0].id = id;
+                        checkbox_child.children[0].children[0].name = id;
+                        checkbox_child.children[0].children[0].checked = false;
                     }
                 })
-
             }
             else {
                 // Take care of input fields
                 id = child.children[1].children[0].id;
                 id = id.split('-')[0] + '-' + num_courses;
                 child.children[1].children[0].id = id;
+                child.children[1].children[0].name = id;
                 child.children[1].children[0].value = '';
             }
         }
@@ -165,7 +169,7 @@ function nextPrev(n) {
     if (currentTab >= x.length) {
         //...the form gets submitted:
         document.getElementById("start-form").submit();
-        submitStartForm();
+        // submitStartForm();
         return false;
     }
     // Otherwise, display the correct tab:
@@ -202,29 +206,29 @@ function validateForm() {
         let userEmail = document.getElementById("userEmail");
         let userPassword = document.getElementById("userPassword");
 
-        if (userName.value == "") {
-            userName.setCustomValidity("User Name required.");
-            valid = false;
-        }
-        else {
-            userName.setCustomValidity("");
-        }
-        // TODO additional validation
-        if (userEmail.value == "") {
-            userEmail.setCustomValidity("User Email required.");
-            valid = false;
-        }
-        else {
-            userEmail.setCustomValidity("");
-        }
-        // TODO additional validation
-        if (userPassword.value == "") {
-            userPassword.setCustomValidity("User Password required.");
-            valid = false;
-        }
-        else {
-            userPassword.setCustomValidity("");
-        }
+        // if (userName.value == "") {
+        //     userName.setCustomValidity("User Name required.");
+        //     valid = false;
+        // }
+        // else {
+        //     userName.setCustomValidity("");
+        // }
+        // // TODO additional validation
+        // if (userEmail.value == "") {
+        //     userEmail.setCustomValidity("User Email required.");
+        //     valid = false;
+        // }
+        // else {
+        //     userEmail.setCustomValidity("");
+        // }
+        // // TODO additional validation
+        // if (userPassword.value == "") {
+        //     userPassword.setCustomValidity("User Password required.");
+        //     valid = false;
+        // }
+        // else {
+        //     userPassword.setCustomValidity("");
+        // }
     }
     else if (currentTab == 1) {
         // No required fields
@@ -263,91 +267,91 @@ function validateForm() {
 /**
  * Submits the form
  */
-function submitStartForm(a) {
-    // step 1
-    let userName = document.getElementById("userName").value;
-    let userEmail = document.getElementById("userEmail").value;
-    let userPassword = document.getElementById("userPassword").value;
-    // console.log("userName", userName, "userEmail", userEmail, "userPassword", userPassword);
+// function submitStartForm(a) {
+//     // step 1
+//     let userName = document.getElementById("userName").value;
+//     let userEmail = document.getElementById("userEmail").value;
+//     let userPassword = document.getElementById("userPassword").value;
+//     // console.log("userName", userName, "userEmail", userEmail, "userPassword", userPassword);
 
-    // step 2
-    calendar_events = [];
-    for (let i = 0; i <= num_courses; ++i) {
-        // TODO check if the initial course is filled out
-        let courseNumber = document.getElementById("courseNumber-"+i).value;
-        let courseName = document.getElementById("courseName-"+i).value;
+//     // step 2
+//     calendar_events = [];
+//     for (let i = 0; i <= num_courses; ++i) {
+//         // TODO check if the initial course is filled out
+//         let courseNumber = document.getElementById("courseNumber-"+i).value;
+//         let courseName = document.getElementById("courseName-"+i).value;
 
-        let courseMonday = document.getElementById("courseMonday-"+i).checked;
-        let courseTuesday = document.getElementById("courseTuesday-"+i).checked;
-        let courseWednesday = document.getElementById("courseWednesday-"+i).checked;
-        let courseThursday = document.getElementById("courseThursday-"+i).checked;
-        let courseFriday = document.getElementById("courseFriday-"+i).checked;
+//         let courseMonday = document.getElementById("courseMonday-"+i).checked;
+//         let courseTuesday = document.getElementById("courseTuesday-"+i).checked;
+//         let courseWednesday = document.getElementById("courseWednesday-"+i).checked;
+//         let courseThursday = document.getElementById("courseThursday-"+i).checked;
+//         let courseFriday = document.getElementById("courseFriday-"+i).checked;
 
-        let courseStartTime = document.getElementById("courseStartTime-"+i).value;
-        let courseEndTime = document.getElementById("courseEndTime-"+i).value;
+//         let courseStartTime = document.getElementById("courseStartTime-"+i).value;
+//         let courseEndTime = document.getElementById("courseEndTime-"+i).value;
         
-        // hardcoded spring 2019
-        let semesterStart = new Date("2019-01-22");
-        let semesterEnd = new Date("2019-05-08");
+//         // hardcoded spring 2019
+//         let semesterStart = new Date("2019-01-22");
+//         let semesterEnd = new Date("2019-05-08");
 
-        for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
-            // TODO handle course Start and End empty
-            start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-                    date.getDate() + 'T' + courseStartTime;
-            end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-                    date.getDate() + 'T' + courseEndTime;
-            dow = date.getDay();
+//         for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
+//             // TODO handle course Start and End empty
+//             start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+//                     date.getDate() + 'T' + courseStartTime;
+//             end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+//                     date.getDate() + 'T' + courseEndTime;
+//             dow = date.getDay();
 
-            event = {
-                title: courseNumber + ' - ' + courseName,
-                start: start,
-                end: end,
-                category: 'student'
-            }
+//             event = {
+//                 title: courseNumber + ' - ' + courseName,
+//                 start: start,
+//                 end: end,
+//                 category: 'student'
+//             }
 
-            // Add event to calendar if the days match up
-            if (dow == 1 && courseMonday) {
-                calendar_events.push(event);
-            }
-            else if (dow == 2 && courseTuesday) {
-                calendar_events.push(event);
-            }
-            else if (dow == 3 && courseWednesday) {
-                calendar_events.push(event);
-            }
-            else if (dow == 4 && courseThursday) {
-                calendar_events.push(event);
-            }
-            else if (dow == 5 && courseFriday) {
-                calendar_events.push(event);
-            }
-        }
-        // console.log("courseNumber", courseNumber, "courseName", courseName, 
-        //     "courseMonday", courseMonday, "courseTuesday", courseTuesday,
-        //     "courseWednesday", courseWednesday, "courseThursday", courseThursday,
-        //     "courseFriday", courseFriday, "courseStartTime", courseStartTime,
-        //     "courseEndTime", courseEndTime);
-    }
-    // step 3
-    let percentStudent = document.getElementById("balanceStudent").value;
-    let percentLife = document.getElementById("balanceLife").value;
-    let percentSleep = document.getElementById("balanceSleep").value;
-    // console.log("percentStudent", percentStudent, "percentLife", percentLife, "percentSleep", percentSleep);
+//             // Add event to calendar if the days match up
+//             if (dow == 1 && courseMonday) {
+//                 calendar_events.push(event);
+//             }
+//             else if (dow == 2 && courseTuesday) {
+//                 calendar_events.push(event);
+//             }
+//             else if (dow == 3 && courseWednesday) {
+//                 calendar_events.push(event);
+//             }
+//             else if (dow == 4 && courseThursday) {
+//                 calendar_events.push(event);
+//             }
+//             else if (dow == 5 && courseFriday) {
+//                 calendar_events.push(event);
+//             }
+//         }
+//         // console.log("courseNumber", courseNumber, "courseName", courseName, 
+//         //     "courseMonday", courseMonday, "courseTuesday", courseTuesday,
+//         //     "courseWednesday", courseWednesday, "courseThursday", courseThursday,
+//         //     "courseFriday", courseFriday, "courseStartTime", courseStartTime,
+//         //     "courseEndTime", courseEndTime);
+//     }
+//     // step 3
+//     let percentStudent = document.getElementById("balanceStudent").value;
+//     let percentLife = document.getElementById("balanceLife").value;
+//     let percentSleep = document.getElementById("balanceSleep").value;
+//     // console.log("percentStudent", percentStudent, "percentLife", percentLife, "percentSleep", percentSleep);
 
-    let user_json = {
-        userName: userName,
-        userEmail: userEmail,
-        userPassword: userPassword,
-        calendar: calendar_events,
-        percentStudent: percentStudent,
-        percentLife: percentLife,
-        percentSleep: percentSleep
-    }
-    console.log(user_json);
-    // TODO WRITE VALUES TO JSON
-    window.location = "/calendar";
-    return false;
-}
+//     let user_json = {
+//         userName: userName,
+//         userEmail: userEmail,
+//         userPassword: userPassword,
+//         calendar: calendar_events,
+//         percentStudent: percentStudent,
+//         percentLife: percentLife,
+//         percentSleep: percentSleep
+//     }
+//     console.log(user_json);
+//     // TODO WRITE VALUES TO JSON
+//     window.location = "/calendar";
+//     return false;
+// }
 
 function parseICS() {
     file = document.getElementById("courseFile").value;

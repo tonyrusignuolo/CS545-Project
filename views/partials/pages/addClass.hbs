@@ -1,0 +1,78 @@
+<div id="course-form-{{id}}" class="course-form">
+    <div class="form-group row">
+        <label for="courseNumber-{{id}}" class="col-sm-4 col-form-label">Course Number</label>
+        <div class="col-sm-8">
+            <input type="text" id="courseNumber-{{id}}" name="courseNumber-{{id}}" class="form-control" placeholder="Ex. CS 545">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="courseName-{{id}}" class="col-sm-4 col-form-label">Course Name</label>
+        <div class="col-sm-8">
+            <input type="text" id="courseName-{{id}}" name="courseName-{{id}}" class="form-control" placeholder="Ex. Human Computer Interaction">
+        </div>
+    </div>
+
+    <!-- Days -->
+    <div class="form-group row form-days">
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="courseMonday-{{id}}">
+                <input class="form-check-input" type="checkbox" id="courseMonday-{{id}}" name="courseMonday-{{id}}" value="Monday">
+                Monday
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="courseTuesday-{{id}}">
+                <input class="form-check-input" type="checkbox" id="courseTuesday-{{id}}" name="courseTuesday-{{id}}" value="Tuesday">
+                Tuesday
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="courseWednesday-{{id}}">
+                <input class="form-check-input" type="checkbox" id="courseWednesday-{{id}}" name="courseWednesday-{{id}}" value="Wednesday">
+                Wednesday
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span> 
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="courseThursday-{{id}}">
+                <input class="form-check-input" type="checkbox" id="courseThursday-{{id}}" name="courseThursday-{{id}}" value="Thursday">
+                Thursday
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label" for="courseFriday-{{id}}">
+                <input class="form-check-input" type="checkbox" id="courseFriday-{{id}}" name="courseFriday-{{id}}" value="Friday">
+                Friday
+                <span class="form-check-sign">
+                    <span class="check"></span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="courseStartTime-{{id}}" class="col-sm-4 col-form-label">Course Start Time </label>
+        <div class="col-sm-8">
+            <input type="time" id="courseStartTime-{{id}}" name="courseStartTime-{{id}}" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="courseEndTime-{{id}}" class="col-sm-4 col-form-label">Course End Time</label>
+        <div class="col-sm-8">
+            <input type="time" id="courseEndTime-{{id}}" name="courseEndTime-{{id}}" class="form-control">
+        </div>
+    </div>
+</div>
