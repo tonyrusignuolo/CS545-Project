@@ -1,5 +1,5 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
-var num_courses = 0;
+var num_courses = 0; // TODO this should be value from handlebars
 var myPieChart;
 
 window.addEventListener("load", function (event) {
@@ -35,10 +35,33 @@ function loadPieChart() {
     });
 }
 
-function updatePieChart()
+function updatePieChart(type)
 {
-    myPieChart.destroy();
-    loadPieChart();
+    let percentStudent = document.getElementById("balanceStudent").value;
+    let percentLife = document.getElementById("balanceLife").value;
+    let percentSleep = document.getElementById("balanceSleep").value;
+
+    let hoursStudent = document.getElementById("balanceStudentHours").value;
+    let hoursLife = document.getElementById("balanceLifeHours").value;
+    let hoursSleep = document.getElementById("balanceSleepHours").value;
+    if (type == 'percent') {
+        // Update hours
+        document.getElementById("balanceStudentHours").value = percentStudent * 24 / 100;
+        document.getElementById("balanceLifeHours").value = percentLife * 24 / 100;
+        document.getElementById("balanceSleepHours").value = percentSleep * 24 / 100;
+
+        myPieChart.destroy();
+        loadPieChart();
+    }
+    else if (type == 'hours') {
+        // Update percents
+        document.getElementById("balanceStudent").value = hoursStudent * 100 / 24;
+        document.getElementById("balanceLife").value = hoursLife * 100 / 24;
+        document.getElementById("balanceSleep").value = hoursSleep * 100 / 24;
+
+        myPieChart.destroy();
+        loadPieChart();
+    }
 }
 
 /**
@@ -46,10 +69,39 @@ function updatePieChart()
  * on Input Class Schedule slide.
  */
 function addCourseForm() {
+    console.log(this);
+    console.log(this.Handlebars);
+    console.log(this.Handlebars.template[0]);
+
     var prevCourse = document.getElementById('course-form-' + num_courses);
     var newCourse = prevCourse.cloneNode(true);
     newCourse.id = 'course-form-' + ++num_courses;
     prevCourse.parentNode.appendChild(newCourse);
+
+    // Update all ids and clear inputs
+    newCourse.childNodes.forEach(child => {
+        if (child.nodeName == "DIV") {
+            if (child.classList.contains('form-days')) {
+                // Take care of checkboxes
+                child.childNodes.forEach(checkbox_child => {
+                    if (checkbox_child.nodeName == "DIV") {
+                        id = checkbox_child.children[0].id;
+                        id = id.split('-')[0] + '-' + num_courses;
+                        checkbox_child.children[0].id = id;
+                        checkbox_child.children[0].checked = false;
+                    }
+                })
+
+            }
+            else {
+                // Take care of input fields
+                id = child.children[1].children[0].id;
+                id = id.split('-')[0] + '-' + num_courses;
+                child.children[1].children[0].id = id;
+                child.children[1].children[0].value = '';
+            }
+        }
+    })
 
     if (num_courses == 1) {
         document.getElementsByClassName("remove-course-form-button")[0].style.display = "inline";
@@ -113,7 +165,6 @@ function nextPrev(n) {
     if (currentTab >= x.length) {
         //...the form gets submitted:
         document.getElementById("start-form").submit();
-        // console.log("SUBMIT BUTTON PRESSED");
         submitStartForm();
         return false;
     }
@@ -147,17 +198,17 @@ function validateForm() {
 
     // User Information 
     if (currentTab == 0) {
-        //userName Email password
         let userName = document.getElementById("userName");
+        let userEmail = document.getElementById("userEmail");
+        let userPassword = document.getElementById("userPassword");
+
         if (userName.value == "") {
-            // userName.className += " invalid"; // How to actually do this
             userName.setCustomValidity("User Name required.");
             valid = false;
         }
         else {
             userName.setCustomValidity("");
         }
-        let userEmail = document.getElementById("userEmail");
         // TODO additional validation
         if (userEmail.value == "") {
             userEmail.setCustomValidity("User Email required.");
@@ -166,7 +217,6 @@ function validateForm() {
         else {
             userEmail.setCustomValidity("");
         }
-        let userPassword = document.getElementById("userPassword");
         // TODO additional validation
         if (userPassword.value == "") {
             userPassword.setCustomValidity("User Password required.");
@@ -180,13 +230,32 @@ function validateForm() {
         // No required fields
     }
     else if (currentTab == 2) {
-        // balanceStudent, balanceLife, balanceSleep
-    }
-    // TODO slide 2 and 3
+        let percentStudent = document.getElementById("balanceStudent");
+        let percentLife = document.getElementById("balanceLife");
+        let percentSleep = document.getElementById("balanceSleep");
 
+        console.log(isNaN(percentStudent.value) )
+
+        if (isNaN(percentStudent.value) || percentStudent.value == '0') {
+            percentStudent.setCustomValidity("Percentage required as integer.");
+            valid = false;
+        }
+        if (isNaN(percentLife.value) || percentLife.value == '0') {
+            percentLife.setCustomValidity("Percentage required as integer.");
+            valid = false;
+        }
+        if (isNaN(percentSleep.value) || percentSleep.value == '0') {
+            percentSleep.setCustomValidity("Percentage required as integer.");
+            valid = false;
+        }
+
+    }
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
+        document.getElementsByClassName("step")[currentTab].className = "step finish";
+    }
+    else {
+        document.getElementsByClassName("step")[currentTab].className = "step invalid";
     }
     return valid; // return the valid status
 }
@@ -195,8 +264,23 @@ function validateForm() {
  * Submits the form
  */
 function submitStartForm(a) {
-    // TODO
-    // console.log("In submitStartForm");
+    // step 1
+    let userName = document.getElementById("userName").value;
+    let userEmail = document.getElementById("userEmail").value;
+    let userPassword = document.getElementById("userPassword").value;
+
+    console.log("userName", userName, "userEmail", userEmail, "userPassword", userPassword);
+
+    // step 2 TODO
+
+    // step 3
+    let percentStudent = document.getElementById("balanceStudent").value;
+    let percentLife = document.getElementById("balanceLife").value;
+    let percentSleep = document.getElementById("balanceSleep").value;
+
+    console.log("percentStudent", percentStudent, "percentLife", percentLife, "percentSleep", percentSleep);
+
+    // TODO PUT VALUES IN JSON AND STORE
     window.location = "/calendar";
     return false;
 }

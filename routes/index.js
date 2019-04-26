@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const Handlebars = require('handlebars');
+const fs = require('fs');
 
 router.get("", async (req, res) => {
 	try {
@@ -32,6 +34,12 @@ router.get("/login", async (req, res) => {
 			err: err
 		});
 	}
+})
+
+router.post("/calendar", async (req, res) => {
+	// TODO user "login" - determine which file to load
+	// Need to avoid sending user password in url
+	res.redirect('/calendar')
 })
 
 router.get("/calendar", async (req, res) => {
@@ -69,15 +77,23 @@ router.get("/calendar", async (req, res) => {
 
 router.get("/startForm", async (req, res) => {
 	try {
+		var addClassTemplate = fs.readFileSync('views/templates/addClass.handlebars', 'utf8');
+		Handlebars.registerPartial('addClass', addClassTemplate);
+		Handlebars.precompile(addClassTemplate);
+
 		let stylesheets = `<link href="/public/css/start_form.css" rel="stylesheet">`;
 
-		let scripts1 = `<script src="/public/js/start_form.js"></script>
+		let scripts1 = `
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+		<script src="/handlebars/dist/handlebars.runtime.js"></script>
+		<script src="/public/js/start_form.js"></script>
 		`
 		let options = {
 			title: "Start Form",
 			stylesheets: stylesheets,
 			scripts1: scripts1,
+			classes: ['0'],
+			handlebars: Handlebars
 		};
 		res.render("templates/startForm", options);
 	} catch (err) {

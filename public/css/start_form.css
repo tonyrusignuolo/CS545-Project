@@ -26,6 +26,10 @@
     background-color: #4CAF50;
 }
 
+.step.invalid {
+    background-color: #ff8080;
+}
+
 .remove-course-form-button {
     display: none;
 }
