@@ -65,90 +65,88 @@ router.get("/startForm", async (req, res) => {
 
 router.post("/startform", async (req, res) =>{
 	try {
-		console.log("wz IN POST START FORM");
-		console.log(req.body);
 		// step 1
-		// let userName = document.getElementById("userName").value;
-		// let userEmail = document.getElementById("userEmail").value;
-		// let userPassword = document.getElementById("userPassword").value;
-		// console.log("userName", userName, "userEmail", userEmail, "userPassword", userPassword);
+		let userName = req.body.userName;
+		let userEmail = req.body.userEmail;
+		let userPassword = req.body.userPassword;
 
-		// // step 2
-		// calendar_events = [];
-		// for (let i = 0; i <= num_courses; ++i) {
-		// 	// TODO check if the initial course is filled out
-		// 	let courseNumber = document.getElementById("courseNumber-"+i).value;
-		// 	let courseName = document.getElementById("courseName-"+i).value;
+		// step 2
+		let numCourses = req.body.numCourses;
+		calendar_events = [];
+		for (let i = 0; i <= numCourses; ++i) {
+			let courseNumber = req.body["courseNumber-"+i];
+			let courseName = req.body["courseName-"+i];
 
-		// 	let courseMonday = document.getElementById("courseMonday-"+i).checked;
-		// 	let courseTuesday = document.getElementById("courseTuesday-"+i).checked;
-		// 	let courseWednesday = document.getElementById("courseWednesday-"+i).checked;
-		// 	let courseThursday = document.getElementById("courseThursday-"+i).checked;
-		// 	let courseFriday = document.getElementById("courseFriday-"+i).checked;
+			let courseMonday = req.body["courseMonday-"+i];
+			let courseTuesday = req.body["courseTuesday-"+i];
+			let courseWednesday = req.body["courseWednesday-"+i];
+			let courseThursday = req.body["courseThursday-"+i];
+			let courseFriday = req.body["courseFriday-"+i];
 
-		// 	let courseStartTime = document.getElementById("courseStartTime-"+i).value;
-		// 	let courseEndTime = document.getElementById("courseEndTime-"+i).value;
+			let courseStartTime = req.body["courseStartTime-"+i];
+			let courseEndTime = req.body["courseEndTime-"+i];
 			
-		// 	// hardcoded spring 2019
-		// 	let semesterStart = new Date("2019-01-22");
-		// 	let semesterEnd = new Date("2019-05-08");
+			// hardcoded spring 2019
+			let semesterStart = new Date("2019-01-22");
+			let semesterEnd = new Date("2019-05-08");
 
-		// 	for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
-		// 		// TODO handle course Start and End empty
-		// 		start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-		// 				date.getDate() + 'T' + courseStartTime;
-		// 		end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-		// 				date.getDate() + 'T' + courseEndTime;
-		// 		dow = date.getDay();
+			for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
+				if (courseStartTime && courseEndTime) {
+					start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+						date.getDate() + 'T' + courseStartTime;
+					end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+						date.getDate() + 'T' + courseEndTime;
+				}
+				else {
+					start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+						date.getDate();
+					end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+						date.getDate();
+				}
+				dow = date.getDay();
 
-		// 		event = {
-		// 			title: courseNumber + ' - ' + courseName,
-		// 			start: start,
-		// 			end: end,
-		// 			category: 'student'
-		// 		}
+				event = {
+					title: courseNumber + ' - ' + courseName,
+					start: start,
+					end: end,
+					category: 'student'
+				}
 
-		// 		// Add event to calendar if the days match up
-		// 		if (dow == 1 && courseMonday) {
-		// 			calendar_events.push(event);
-		// 		}
-		// 		else if (dow == 2 && courseTuesday) {
-		// 			calendar_events.push(event);
-		// 		}
-		// 		else if (dow == 3 && courseWednesday) {
-		// 			calendar_events.push(event);
-		// 		}
-		// 		else if (dow == 4 && courseThursday) {
-		// 			calendar_events.push(event);
-		// 		}
-		// 		else if (dow == 5 && courseFriday) {
-		// 			calendar_events.push(event);
-		// 		}
-		// 	}
-		// 	// console.log("courseNumber", courseNumber, "courseName", courseName, 
-		// 	//     "courseMonday", courseMonday, "courseTuesday", courseTuesday,
-		// 	//     "courseWednesday", courseWednesday, "courseThursday", courseThursday,
-		// 	//     "courseFriday", courseFriday, "courseStartTime", courseStartTime,
-		// 	//     "courseEndTime", courseEndTime);
-		// }
-		// // step 3
-		// let percentStudent = document.getElementById("balanceStudent").value;
-		// let percentLife = document.getElementById("balanceLife").value;
-		// let percentSleep = document.getElementById("balanceSleep").value;
-		// // console.log("percentStudent", percentStudent, "percentLife", percentLife, "percentSleep", percentSleep);
+				// Add event to calendar if the days match up
+				if (dow == 1 && courseMonday) {
+					calendar_events.push(event);
+				}
+				else if (dow == 2 && courseTuesday) {
+					calendar_events.push(event);
+				}
+				else if (dow == 3 && courseWednesday) {
+					calendar_events.push(event);
+				}
+				else if (dow == 4 && courseThursday) {
+					calendar_events.push(event);
+				}
+				else if (dow == 5 && courseFriday) {
+					calendar_events.push(event);
+				}
+			}
+		}
+		// step 3
+		let percentStudent = req.body.balanceStudent;
+		let percentLife = req.body.balanceLife;
+		let percentSleep = req.body.balanceSleep;
 
-		// let user_json = {
-		// 	userName: userName,
-		// 	userEmail: userEmail,
-		// 	userPassword: userPassword,
-		// 	calendar: calendar_events,
-		// 	percentStudent: percentStudent,
-		// 	percentLife: percentLife,
-		// 	percentSleep: percentSleep
-		// }
-		// console.log(user_json);
-		// const event = await eventData.create(req.body)
-
+		let user_json = {
+			userName: userName,
+			userEmail: userEmail,
+			userPassword: userPassword,
+			calendar: calendar_events,
+			percentStudent: percentStudent,
+			percentLife: percentLife,
+			percentSleep: percentSleep
+		}
+		console.log(user_json);
+		// TODO USER JSON SHOULD GO TO DATABASE
+		res.redirect("/calendar");		
 	} catch (error) {
 		res.status(400);
 		res.send(error);
