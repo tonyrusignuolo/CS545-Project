@@ -7,6 +7,8 @@ const handlebars = express.static(__dirname + "/node_modules/handlebars");
 const assets = express.static(__dirname + "/assets")
 const fs = express.static(__dirname + "/node_modules/fs.realpath")
 const fullCalendar = express.static(__dirname + "/node_modules/@fullcalendar");
+const tooltip = express.static(__dirname + "/node_modules/tooltip.js");
+const popper = express.static(__dirname + "/node_modules/popper.js");
 const public = express.static(__dirname + "/public");
 
 const handlebarsInstance = exphbs.create({
@@ -55,7 +57,9 @@ app.use("/assets", assets);
 app.use("/fs", fs);
 app.use("/@fullcalendar", fullCalendar);
 app.use("/handlebars", handlebars);
+app.use("/popper", popper);
 app.use("/public", public);
+app.use("/tooltip", tooltip);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true

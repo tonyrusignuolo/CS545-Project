@@ -28,27 +28,6 @@ router.get("/login", async (req, res) => {
 	}
 })
 
-router.post("/calendar", async (req, res) => {
-	// TODO user "login" - determine which file to load
-	// Need to avoid sending user password in url
-	res.redirect('/calendar')
-})
-
-router.get("/calendar", async (req, res) => {
-	try {
-		// do stuff
-		let scripts2 = `<script src='/public/js/modal.js'></script>`;
-		let options = {
-			scripts2: scripts2,
-			title: "Calendar!",
-		};
-		res.render("partials/pages/calendar", options);
-	} catch (error) {
-		res.status(400);
-		res.send(error);
-	}
-})
-
 router.get("/startForm", async (req, res) => {
 	try {
 		let options = {
@@ -144,9 +123,41 @@ router.post("/startform", async (req, res) =>{
 			percentLife: percentLife,
 			percentSleep: percentSleep
 		}
-		console.log(user_json);
 		// TODO USER JSON SHOULD GO TO DATABASE
+		for (let i = 0; i < calendar_events.length; i++)
+		{
+			await eventData.create(calendar_events[i]);
+		}
 		res.redirect("/calendar");		
+	} catch (error) {
+		res.status(400);
+		res.send(error);
+	}
+})
+
+router.post("/calendar", async (req, res) => {
+	// TODO user "login" - determine which file to load
+	// Need to avoid sending user password in url
+	res.redirect('/calendar')
+})
+
+router.get("/calendar", async (req, res) => {
+	try {
+		// do stuff
+		let options = {
+			title: "Calendar!",
+		};
+		res.render("partials/pages/calendar", options);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
+	}
+})
+
+router.get("/calendar/events", async (req, res) => {
+	try {
+		let events = await eventData.readAll();
+		res.json(events);
 	} catch (error) {
 		res.status(400);
 		res.send(error);

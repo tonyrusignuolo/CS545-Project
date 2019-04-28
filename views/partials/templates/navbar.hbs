@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="navbar-translate">
 			<a class="navbar-brand" href="/">
-				<img src="/assets/img/hbLogoNav.png" alt="heartbeat">
+				<img src="/assets/img/favicon.png" alt="heartbeat">
 			</a>
 			{{#if user}}
 			Welcome back, {{user.firstName}}!
@@ -14,33 +14,19 @@
 			{{/if}}
 			{{/if}}
 			<button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
-				aria-label="Toggle navigation">
+				data-target="#navbarNavDropdown" aria-label="Toggle navigation">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="navbar-toggler-icon"></span>
 				<span class="navbar-toggler-icon"></span>
 				<span class="navbar-toggler-icon"></span>
 			</button>
 		</div>
-		<div class="collapse navbar-collapse">
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a href="#" class="nav-link">
 						About
 					</a>
-					{{!-- <div class="dropdown-menu dropdown-with-icons">
-						<a href="" class="dropdown-item">
-							<i class="material-icons">info</i> What We're About
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">people</i> Who We Are
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">library_books</i> Things
-						</a>
-						<a href="" class="dropdown-item">
-							<i class="material-icons">whatshot</i> Stuff
-						</a>
-					</div> --}}
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="/calendar">

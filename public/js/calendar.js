@@ -1,9 +1,48 @@
-// import Calendar from '@fullcalendar/core';
-// import dayGridPlugin from '@fullcalendar/daygrid';
+// var Tooltip = require("tooltip");
 var calendarEl;
 var calendar;
+var events;
 
-function renderCalendar() {
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'calendar/events');
+xhr.onload = function () {
+	events = JSON.parse(xhr.responseText);
+}
+xhr.send();
+// console.log(events);
+
+async function downloadEvents() {
+	// let events = $.getJSON("/calendar/events");
+	let eventsData = null;
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', 'calendar/events');
+	xhr.onload = async function () {
+		eventsData = xhr.responseText;
+	}
+	await xhr.send();
+	console.log(eventsData);
+	return JSON.parse(eventsData);
+}
+
+// jQuery.extend({
+//     getValues: function(url) {
+//         var result = null;
+//         $.ajax({
+//             url: url,
+//             type: 'get',
+//             dataType: 'json',
+//             async: false,
+//             success: function(data) {
+//                 result = data;
+//             }
+//         });
+//        return result;
+//     }
+// });
+
+async function renderCalendar() {
+	// events = await downloadEvents();
+	// console.log(events);
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		customButtons: {
 			addEvent: {
@@ -13,13 +52,13 @@ function renderCalendar() {
 					var modal = document.getElementById('myModal');
 					modal.style.display = "block";
 				}
-			},
-			profile: {
-				text: 'Profile',
-				click: function() {
-					window.location.href = './profile';
-				}
 			}
+			// profile: {
+			// 	text: 'Profile',
+			// 	click: function () {
+			// 		window.location.href = './profile';
+			// 	}
+			// }
 		},
 		header: {
 			left: 'prev,next today',
@@ -44,10 +83,10 @@ function renderCalendar() {
 	calendar.render();
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 	calendarEl = document.getElementById('calendar');
 	// calendar = new FullCalendar.Calendar(calendarEl, {});
-	renderCalendar();
+	await renderCalendar();
 })
 
 function addEvent(title, description, date, from, to, location) {
@@ -63,89 +102,63 @@ function addEvent(title, description, date, from, to, location) {
 	events.push(event);
 	calendar.destroy();
 	renderCalendar();
-	console.log("h");
 }
 
-let events = [{
-		title: 'All Day Event',
-		description: 'description for All Day Event',
-		start: '2019-04-01'
-	},
-	{
-		title: 'Long Event',
-		description: 'description for Long Event',
-		start: '2019-10-07',
-		end: '2019-04-10'
-	},
-	{
-		id: 999,
-		title: 'Repeating Event',
-		description: 'description for Repeating Event',
-		start: '2019-04-09T16:00:00'
-	},
-	{
-		id: 999,
-		title: 'Repeating Event',
-		description: 'description for Repeating Event',
-		start: '2019-04-16T16:00:00'
-	},
-	{
-		title: 'Conference',
-		description: 'description for Conference',
-		start: '2019-04-11',
-		end: '2019-04-13'
-	},
-	{
-		title: 'Meeting',
-		description: 'description for Meeting',
-		start: '2019-04-12T10:30:00',
-		end: '2019-04-12T12:30:00'
-	},
-	{
-		title: 'Lunch',
-		description: 'description for Lunch',
-		start: '2019-04-12T12:00:00'
-	},
-	{
-		title: 'Meeting',
-		description: 'description for Meeting',
-		start: '2019-04-12T14:30:00'
-	},
-	{
-		title: 'Birthday Party',
-		description: 'description for Birthday Party',
-		start: '2019-04-13T07:00:00'
-	},
-	{
-		title: 'Click for Google',
-		description: 'description for Click for Google',
-		url: 'http://google.com/',
-		start: '2019-04-28'
-	}
-]
 
-// document.addEventListener('DOMContentLoaded', function () {
-// 	var calendarEl = document.getElementById('calendar');
-// 	var calendar = new Calendar(calendarEl, {
-// 		plugins: [dayGridPlugin],
-// 		events: events
-// 	});
-// 	calendar.render();
-// });
-
-
-
-// $('#calendar').fullCalendar({
-// 	defaultView: 'month',
-// 	defaultDate: '2018-04-12',
-
-// 	eventRender: function (eventObj, $el) {
-// 		$el.popover({
-// 			title: eventObj.title,
-// 			content: eventObj.description,
-// 			trigger: 'hover',
-// 			placement: 'top',
-// 			container: 'body'
-// 		});
-// 	},
-// });
+// let events = [{
+// 	title: 'All Day Event',
+// 	description: 'description for All Day Event',
+// 	start: '2019-04-01'
+// },
+// {
+// 	title: 'Long Event',
+// 	description: 'description for Long Event',
+// 	start: '2019-10-07',
+// 	end: '2019-04-10'
+// },
+// {
+// 	id: 999,
+// 	title: 'Repeating Event',
+// 	description: 'description for Repeating Event',
+// 	start: '2019-04-09T16:00:00'
+// },
+// {
+// 	id: 999,
+// 	title: 'Repeating Event',
+// 	description: 'description for Repeating Event',
+// 	start: '2019-04-16T16:00:00'
+// },
+// {
+// 	title: 'Conference',
+// 	description: 'description for Conference',
+// 	start: '2019-04-11',
+// 	end: '2019-04-13'
+// },
+// {
+// 	title: 'Meeting',
+// 	description: 'description for Meeting',
+// 	start: '2019-04-12T10:30:00',
+// 	end: '2019-04-12T12:30:00'
+// },
+// {
+// 	title: 'Lunch',
+// 	description: 'description for Lunch',
+// 	start: '2019-04-12T12:00:00'
+// },
+// {
+// 	title: 'Meeting',
+// 	description: 'description for Meeting',
+// 	start: '2019-04-12T14:30:00'
+// },
+// {
+// 	title: 'Birthday Party',
+// 	description: 'description for Birthday Party',
+// 	start: '2019-04-13T07:00:00'
+// },
+// {
+// 	title: 'Click for Google',
+// 	description: 'description for Click for Google',
+// 	url: 'http://google.com/',
+// 	start: '2019-04-28'
+// }
+// ]

@@ -11,7 +11,7 @@ module.exports = {
 		let eventsCollection = await events();
 		let insertInfo = await eventsCollection.insertOne(object);
 		if (insertInfo.insertedCount === 0) {
-			throw ("Error profile.createProf: Could not add the profile to collection");
+			throw ("Error event.create: Could not add the event to collection");
 		}
 		return this.read(insertInfo.insertedId);
 	},
