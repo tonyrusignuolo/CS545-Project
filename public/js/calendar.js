@@ -13,12 +13,18 @@ function renderCalendar() {
 					var modal = document.getElementById('myModal');
 					modal.style.display = "block";
 				}
+			},
+			profile: {
+				text: 'Profile',
+				click: function() {
+					window.location.href = './profile';
+				}
 			}
 		},
 		header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'addEvent dayGridMonth,timeGridWeek,listDay'
+			right: 'profile addEvent dayGridMonth,timeGridWeek,listDay'
 		},
 		plugins: ['dayGrid', 'timeGrid', 'list'],
 		// plugins: [FullCalendar.dayGridPlugin, FullCalendar.timeGrid, FullCalendar.list],
