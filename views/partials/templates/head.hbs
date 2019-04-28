@@ -3,9 +3,11 @@
 <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 <link rel="icon" type="image/png" href="/assets/img/hbLogo'.png">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport'>
 <!--     Fonts and icons     -->
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+<link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 {{!-- CSS Files --}}
 <link href="/assets/css/material-kit.css?v=2.0.4" rel="stylesheet">
@@ -18,11 +20,11 @@
 {{!-- Bootstrap Reboot --}}
 <link href="/public/css/bootstrap-reboot.min.css" rel="stylesheet">
 {{!-- Full Calendar --}}
-<link href='/public/css/main.css' rel='stylesheet'/>
-<link href='/@fullcalendar/core/main.css' rel='stylesheet'/>
-<link href='/@fullcalendar/daygrid/main.css' rel='stylesheet'/>
-<link href='/@fullcalendar/timegrid/main.css' rel='stylesheet'/>
-<link href='/@fullcalendar/list/main.css' rel='stylesheet'/>
+<link href='/public/css/main.css' rel='stylesheet' />
+<link href='/@fullcalendar/core/main.css' rel='stylesheet' />
+<link href='/@fullcalendar/daygrid/main.css' rel='stylesheet' />
+<link href='/@fullcalendar/timegrid/main.css' rel='stylesheet' />
+<link href='/@fullcalendar/list/main.css' rel='stylesheet' />
 <link href="/public/css/calendar.css" rel="stylesheet">
 <script src='/@fullcalendar/core/main.js'></script>
 <script src='/@fullcalendar/daygrid/main.js'></script>
@@ -37,5 +39,60 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script src="/handlebars/dist/handlebars.runtime.js"></script>
 <script src="/public/js/start_form.js"></script>
+{{!-- Profile Scripts --}}
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+`
+<script type="text/javascript">
+    // Load google charts
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 8],
+            ['Friends', 2],
+            ['Eat', 2],
+            ['TV', 2],
+            ['Gym', 2],
+            ['Sleep', 8]
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {  'width': 550, 'height': 400 };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('chartOne'));
+        chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart','bar'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Category', 'Target Percentage', 'Achieved Percentage'],
+            ['Sleep', 40, 35],
+            ['Work', 30, 40],
+            ['Play', 30, 25]
+        ]);
+
+        var options = {
+            'title': 'Goals vs Achieved',
+            'width': 700,
+            'height': 300,
+            legend: {position: 'none'}
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('chartTwo'));
+
+        chart.draw(data, options);
+    }
+</script>`
 {{!-- Title --}}
 <title>{{title}}</title>
