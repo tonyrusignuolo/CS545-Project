@@ -4,7 +4,7 @@ var calendar;
 var events_data;
 
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'calendar/events');
+xhr.open('GET', 'calendar/events', true);
 xhr.onload = function () {
 	events_data = JSON.parse(xhr.responseText);
 	events_data = events_data.map(e => {
@@ -105,7 +105,12 @@ function addEvent(title, description, date, from, to, location) {
 		end: end ? end : '2019-04-05',
 		location: location ? location : "Location"
 	}
-	events.push(event);
+	xhr = new XMLHttpRequest();
+	xhr.open('POST', 'calendar/events?title=' + event.title + "&description=" + event.description + "&start=" + event.start + "&end=" + event.end + "&location=" + event.location);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.onload = function () {};
+	xhr.send();
+	events.push(events_data);
 	calendar.destroy();
 	renderCalendar();
 }

@@ -42,7 +42,7 @@ router.get("/startForm", async (req, res) => {
 	}
 })
 
-router.post("/startform", async (req, res) =>{
+router.post("/startform", async (req, res) => {
 	try {
 		// step 1
 		let userName = req.body.userName;
@@ -53,33 +53,33 @@ router.post("/startform", async (req, res) =>{
 		let numCourses = req.body.numCourses;
 		calendar_events = [];
 		for (let i = 0; i <= numCourses; ++i) {
-			let courseNumber = req.body["courseNumber-"+i];
-			let courseName = req.body["courseName-"+i];
+			let courseNumber = req.body["courseNumber-" + i];
+			let courseName = req.body["courseName-" + i];
 
-			let courseMonday = req.body["courseMonday-"+i];
-			let courseTuesday = req.body["courseTuesday-"+i];
-			let courseWednesday = req.body["courseWednesday-"+i];
-			let courseThursday = req.body["courseThursday-"+i];
-			let courseFriday = req.body["courseFriday-"+i];
+			let courseMonday = req.body["courseMonday-" + i];
+			let courseTuesday = req.body["courseTuesday-" + i];
+			let courseWednesday = req.body["courseWednesday-" + i];
+			let courseThursday = req.body["courseThursday-" + i];
+			let courseFriday = req.body["courseFriday-" + i];
 
-			let courseStartTime = req.body["courseStartTime-"+i];
-			let courseEndTime = req.body["courseEndTime-"+i];
-			
+			let courseStartTime = req.body["courseStartTime-" + i];
+			let courseEndTime = req.body["courseEndTime-" + i];
+
 			// hardcoded spring 2019
 			let semesterStart = new Date("2019-01-22");
 			let semesterEnd = new Date("2019-05-08");
 
 			for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
 				if (courseStartTime && courseEndTime) {
-					start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+					start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' +
 						date.getDate() + 'T' + courseStartTime;
-					end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+					end = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' +
 						date.getDate() + 'T' + courseEndTime;
 				}
 				else {
-					start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+					start = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' +
 						date.getDate();
-					end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
+					end = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' +
 						date.getDate();
 				}
 				dow = date.getDay();
@@ -124,11 +124,10 @@ router.post("/startform", async (req, res) =>{
 			percentSleep: percentSleep
 		}
 		// TODO USER JSON SHOULD GO TO DATABASE
-		for (let i = 0; i < calendar_events.length; i++)
-		{
+		for (let i = 0; i < calendar_events.length; i++) {
 			await eventData.create(calendar_events[i]);
 		}
-		res.redirect("/calendar");		
+		res.redirect("/calendar");
 	} catch (error) {
 		res.status(400);
 		res.send(error);
@@ -164,10 +163,26 @@ router.get("/calendar/events", async (req, res) => {
 	}
 })
 
+router.post("calendar/events", async (req, res) => {
+	try {
+		let event = {
+			title: req.query.title,
+			description: req.query.description,
+			start: req.query.start,
+			end: req.query.end,
+			location: req.query.location
+		};
+		eventData.create(event);
+	} catch (error) {
+		res.status(400);
+		res.send(error);
+	}
+})
+
 router.get("/profile", (req, res) => {
 	try {
 		let stylesheets = `<link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">`;
-		
+
 		let options = {
 			title: "Profile",
 			stylesheets: stylesheets
