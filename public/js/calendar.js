@@ -16,6 +16,7 @@ xhr.onload = function () {
 	});
 }
 xhr.send();
+console.log(events_data);
 
 async function downloadEvents() {
 	// let events = $.getJSON("/calendar/events");
