@@ -1,15 +1,21 @@
 // var Tooltip = require("tooltip");
 var calendarEl;
 var calendar;
-var events;
+var events_data;
 
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'calendar/events');
 xhr.onload = function () {
-	events = JSON.parse(xhr.responseText);
+	events_data = JSON.parse(xhr.responseText);
+	events_data = events_data.map(e => {
+		return e = {
+			'title': e.title,
+			'start': new Date(e.start),
+			'end': new Date(e.end)
+		};
+	});
 }
 xhr.send();
-// console.log(events);
 
 async function downloadEvents() {
 	// let events = $.getJSON("/calendar/events");
@@ -42,7 +48,6 @@ async function downloadEvents() {
 
 async function renderCalendar() {
 	// events = await downloadEvents();
-	// console.log(events);
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		customButtons: {
 			addEvent: {
@@ -63,7 +68,7 @@ async function renderCalendar() {
 		header: {
 			left: 'prev,next today',
 			center: 'title',
-			right: 'profile addEvent dayGridMonth,timeGridWeek,listDay'
+			right: 'addEvent dayGridMonth,timeGridWeek,listDay'
 		},
 		plugins: ['dayGrid', 'timeGrid', 'list'],
 		// plugins: [FullCalendar.dayGridPlugin, FullCalendar.timeGrid, FullCalendar.list],
@@ -78,7 +83,7 @@ async function renderCalendar() {
 		navLinks: true, // can click day/week names to navigate views
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
-		events: events
+		events: events_data
 	});
 	calendar.render();
 };
@@ -104,8 +109,7 @@ function addEvent(title, description, date, from, to, location) {
 	renderCalendar();
 }
 
-
-// let events = [{
+// let events_test = [{
 // 	title: 'All Day Event',
 // 	description: 'description for All Day Event',
 // 	start: '2019-04-01'
