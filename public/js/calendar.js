@@ -10,8 +10,8 @@ xhr.onload = function () {
 	events_data = events_data.map(e => {
 		return e = {
 			'title': e.title,
-			'start': new Date(e.start),
-			'end': new Date(e.end)
+			'start': e.start,
+			'end': e.end
 		};
 	});
 }
@@ -105,7 +105,7 @@ function addEvent(title, description, date, from, to, location) {
 		end: end ? end : '2019-04-05',
 		location: location ? location : "Location"
 	}
-	events.push(event);
+	events_data.push(event);
 	calendar.destroy();
 	renderCalendar();
 }

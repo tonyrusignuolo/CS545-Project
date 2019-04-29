@@ -64,23 +64,25 @@ router.post("/startform", async (req, res) =>{
 
 			let courseStartTime = req.body["courseStartTime-"+i];
 			let courseEndTime = req.body["courseEndTime-"+i];
-			
+
 			// hardcoded spring 2019
 			let semesterStart = new Date("2019-01-22");
 			let semesterEnd = new Date("2019-05-08");
 
 			for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
 				if (courseStartTime && courseEndTime) {
-					start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-						date.getDate() + 'T' + courseStartTime;
-					end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-						date.getDate() + 'T' + courseEndTime;
+					start = new Date(date.getFullYear(), date.getMonth(), 
+						date.getDate(), courseStartTime.split(":")[0], 
+						courseStartTime.split(":")[1]);
+					end = new Date(date.getFullYear(), date.getMonth(), 
+						date.getDate(), courseEndTime.split(":")[0], 
+						courseEndTime.split(":")[1]);
 				}
 				else {
-					start = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-						date.getDate();
-					end = date.getFullYear() + '-' + (date.getMonth()+1) + '-' +
-						date.getDate();
+					start = new Date(date.getFullYear(), date.getMonth()+1, 
+						date.getDate());
+					end = new Date(date.getFullYear(), date.getMonth()+1, 
+						date.getDate());
 				}
 				dow = date.getDay();
 
@@ -123,7 +125,6 @@ router.post("/startform", async (req, res) =>{
 			percentLife: percentLife,
 			percentSleep: percentSleep
 		}
-		// TODO USER JSON SHOULD GO TO DATABASE
 		for (let i = 0; i < calendar_events.length; i++)
 		{
 			await eventData.create(calendar_events[i]);
