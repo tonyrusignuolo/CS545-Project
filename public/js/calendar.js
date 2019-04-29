@@ -7,13 +7,6 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', 'calendar/events');
 xhr.onload = function () {
 	events_data = JSON.parse(xhr.responseText);
-	events_data = events_data.map(e => {
-		return e = {
-			'title': e.title,
-			'start': e.start,
-			'end': e.end
-		};
-	});
 }
 xhr.send();
 console.log(events_data);
@@ -106,6 +99,70 @@ function addEvent(title, description, date, from, to, location) {
 		location: location ? location : "Location"
 	}
 	events_data.push(event);
+	calendar.destroy();
+	renderCalendar();
+}
+
+function addClass()
+{
+	let courseNumber = document.getElementById("courseNumber-0").value;
+	let courseName = document.getElementById("courseName-0").value;
+
+	let courseMonday = document.getElementById("courseMonday-0").checked;
+	let courseTuesday = document.getElementById("courseTuesday-0").checked;
+	let courseWednesday = document.getElementById("courseWednesday-0").checked;
+	let courseThursday = document.getElementById("courseThursday-0").checked;
+	let courseFriday = document.getElementById("courseFriday-0").checked;
+
+	let courseStartTime = document.getElementById("courseStartTime-0").value;
+	let courseEndTime = document.getElementById("courseEndTime-0").value;
+
+	// hardcoded spring 2019
+	let semesterStart = new Date("2019-01-22");
+	let semesterEnd = new Date("2019-05-08");
+
+	for (let date = semesterStart; date <= semesterEnd; date.setDate(date.getDate() + 1)) {
+		if (courseStartTime && courseEndTime) {
+			start = new Date(date.getFullYear(), date.getMonth(), 
+				date.getDate(), courseStartTime.split(":")[0], 
+				courseStartTime.split(":")[1]);
+			end = new Date(date.getFullYear(), date.getMonth(), 
+				date.getDate(), courseEndTime.split(":")[0], 
+				courseEndTime.split(":")[1]);
+		}
+		else {
+			start = new Date(date.getFullYear(), date.getMonth()+1, 
+				date.getDate());
+			end = new Date(date.getFullYear(), date.getMonth()+1, 
+				date.getDate());
+		}
+		dow = date.getDay();
+
+		event = {
+			'title': courseNumber + ' - ' + courseName,
+			'start': start,
+			'end': end,
+			'category': 'student'
+		}
+
+		// Add event to calendar if the days match up
+		if (dow == 1 && courseMonday) {
+			events_data.push(event);
+		}
+		else if (dow == 2 && courseTuesday) {
+			events_data.push(event);
+		}
+		else if (dow == 3 && courseWednesday) {
+			events_data.push(event);
+		}
+		else if (dow == 4 && courseThursday) {
+			events_data.push(event);
+		}
+		else if (dow == 5 && courseFriday) {
+			events_data.push(event);
+		}
+	}
+	// Update calendar
 	calendar.destroy();
 	renderCalendar();
 }
